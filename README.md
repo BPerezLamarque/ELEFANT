@@ -2,7 +2,7 @@
 
 
 
-This tutorial explains how to run ELEFANT.
+This tutorial explains how to run ELEFANT for reconstructing ancestral interaction network from present-day data.
 
 
 <p align="center">
@@ -81,7 +81,7 @@ tree_A <- read.tree("tree_angiosperm_families.tre")
 
 # Open the interaction network:
 network <- read.table("network_Nymphalini_plants.csv", sep=";", header=TRUE)
-# Warring: Each row corresponds to a taxon of clade B(Nymphalini here) and each column to a taxon of clade A (Angiosperm family)
+# Warring: The interaction network needs to be an interaction matrix (with O or 1 for indicating interactions). Each row corresponds to a taxon of clade B(Nymphalini here) and each column to a taxon of clade A (Angiosperm family)
 
 ```
 
