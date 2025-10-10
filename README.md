@@ -10,11 +10,11 @@ This tutorial explains how to run ELEFANT.
 </p>
 
 <p align="center">
-    <b>Figure 1: ELEFANT: Evolution of LatEnt traits for Ancestral Network reconsTruction.</b> First, given a bipartite interaction network (N), ELEFANT estimates the latent traits of extant species from both clades (L and R)  responsible of present-day interactions using the random dot graph product (RDPG) method. Each species is characterized by a vector of d latent trait values; here for clarity only the first latent trait value is represented with the color code. Second, for each guild, ELEFANT adds the extinct and unsampled lineages on the phylogenetic trees (colored in green) using data augmentation, which assumes constant rates of speciation (lambda), extinction (mu), and sampling at present (rho). Third, ELEFANT performs ancestral reconstructions of the latent traits on the phylogenetic trees of each guild using Brownian motions. Fourth, at any time in the past (e.g. 50 Mya), ELEFANT outputs ancestral interaction networks from the estimated ancestral latent trait values. Fifth, to assess whether the assumptions underlying ELEFANT are appropriate given a specific empirical network, a cross-validation procedure measures the ability of ELEFANT to reliably recover known interactions at present in this given system. 
+    <b>Figure 1: ELEFANT: Evolution of LatEnt traits for Ancestral Network reconsTruction.</b> <small>First, given a bipartite interaction network (N), ELEFANT estimates the latent traits of extant species from both clades (L and R)  responsible of present-day interactions using the random dot graph product (RDPG) method. Each species is characterized by a vector of d latent trait values; here for clarity only the first latent trait value is represented with the color code. Second, for each guild, ELEFANT adds the extinct and unsampled lineages on the phylogenetic trees (colored in green) using data augmentation, which assumes constant rates of speciation (lambda), extinction (mu), and sampling at present (rho). Third, ELEFANT performs ancestral reconstructions of the latent traits on the phylogenetic trees of each guild using Brownian motions. Fourth, at any time in the past (e.g. 50 Mya), ELEFANT outputs ancestral interaction networks from the estimated ancestral latent trait values. Fifth, to assess whether the assumptions underlying ELEFANT are appropriate given a specific empirical network, a cross-validation procedure measures the ability of ELEFANT to reliably recover known interactions at present in this given system.</small> 
 </p>
 
 
-**Citation:** Benoît Perez-Lamarque, Jérémy Andréoletti, Baptiste Morillon, Orane Pion-Piola, Amaury Lambert, and Hélène Morlon, *Darwin’s Entangled Bank Through Deep Time*, bioRxiv, 2025. 
+**Citation:** Benoît Perez-Lamarque, Jérémy Andréoletti, Baptiste Morillon, Orane Pion-Piola, Amaury Lambert, and Hélène Morlon, *Darwin’s Entangled Bank Through Deep Time*, bioRxiv, 2025, DOI: https://doi.org/10.1101/2025.10.08.681159
 
 
 
@@ -25,7 +25,7 @@ This tutorial explains how to run ELEFANT.
 
 # Contents:
 **[Installation](#installation)**\
-**[Running ELEFANT](#running-elefant)**\
+**[Running ELEFANT](#running-elefant)**
 
 
 
