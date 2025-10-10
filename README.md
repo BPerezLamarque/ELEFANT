@@ -34,7 +34,7 @@ This tutorial explains how to run ELEFANT.
 # Installation:
 
 
-The R script to run ELEFANT ("functions_ELEFANT.R") must be downloaded from the folder ['script'](https://github.com/BPerezLamarque/ELEFANT/tree/main/script/) and stored in your R working directory. 
+The R script to run ELEFANT ("functions_ELEFANT.R") must be downloaded from the folder ['R'](https://github.com/BPerezLamarque/ELEFANT/tree/main/R/) and stored in your R working directory. 
 In addition, the following packages must be installed:
 
 ```r
