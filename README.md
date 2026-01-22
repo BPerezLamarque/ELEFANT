@@ -48,7 +48,9 @@ install.packages("phytools", "mvMORPH", "RPANDA", "bipartite", "igraph", "ggplot
 # Running ELEFANT:
 
 
-First, you can set your working directory and **load the packages and functions**:
+First, you can set your working directory and **load the required packages and functions**.
+ELEFANT has been successfully tested on Linux and MacOS using R versions >4.2. 
+The running time of ELEFANT will depend on the size of the datasets (it can take from a few minutes to several hours). To save time, the computation of the global metrics of the ancestral networks (the longest part) can be skipped. 
 
 ```r
 
