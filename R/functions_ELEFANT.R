@@ -125,9 +125,9 @@ data_augmentation_tree <- function(tree, lambda, mu, rho, seed){
   age <- max(node.depth.edgelength(tree))
   ntip <- Ntip(tree)
   
-  f_rate_nodes <- pryr::partial(rate_node_age, lambda=lambda, mu=mu, rho=rho)
-  lambda_t <- pryr::partial(lambda_augmented, lambda = lambda, mu = mu, rho = rho)
-  mu_t <- pryr::partial(mu_augmented, lambda = lambda, mu = mu, rho = rho)
+  f_rate_nodes <- purrr::partial(rate_node_age, lambda=lambda, mu=mu, rho=rho)
+  lambda_t <- purrr::partial(lambda_augmented, lambda = lambda, mu = mu, rho = rho)
+  mu_t <- purrr::partial(mu_augmented, lambda = lambda, mu = mu, rho = rho)
   
   nb_augmented <- 0
   augmented_tree <- tree
@@ -154,7 +154,7 @@ data_augmentation_tree <- function(tree, lambda, mu, rho, seed){
           where <- which(augmented_tree$tip.label==tree$tip.label[node_2])
         }
         
-        f_rate_events <- pryr::partial(lambda_mu_augmented, lambda=lambda, mu=mu, rho=rho, nb_lineages=1)
+        f_rate_events <- purrr::partial(lambda_mu_augmented, lambda=lambda, mu=mu, rho=rho, nb_lineages=1)
         time <- sim_nhpp(f_rate_events, min_t = 0, max_t = t_stem)[1]
         
         if (is.na(time)){ # 1) One augmented lineage reaches the present (unsampled)
@@ -184,7 +184,7 @@ data_augmentation_tree <- function(tree, lambda, mu, rho, seed){
             
             while ((length(lineages_alive)>0)&(time>0)){
               
-              f_rate_events <- pryr::partial(lambda_mu_augmented, lambda=lambda, mu=mu, rho=rho, nb_lineages=length(lineages_alive))
+              f_rate_events <- purrr::partial(lambda_mu_augmented, lambda=lambda, mu=mu, rho=rho, nb_lineages=length(lineages_alive))
               time <- sim_nhpp(f_rate_events, min_t = 0, max_t = time)[1]
               
               if (is.na(time)){ # branch(es) alive 
@@ -1107,11 +1107,15 @@ run_ELEFANT <- function(name, nb_recon, list_ages, tree_extant_A, tree_extant_B,
 }
 
 
-
-ELEFANT <- function(name, nb_recon=250, list_ages, 
+ELEFANT <- function(name,
+                    network,
                     tree_A, tree_B,
+                    nb_recon=250, list_ages, 
                     list_full_extant_A = NULL, list_full_extant_B = NULL,
+                    threshold="Youden",
                     only_CV=FALSE,
+                    perc_cv_A=0.1,
+                    perc_cv_B=0.1,
                     stochastic_mapping=TRUE, 
                     obligate_A=TRUE, obligate_B=TRUE, evolution_A=TRUE,
                     data_augmentation_A=TRUE, data_augmentation_B=TRUE, 
@@ -1121,8 +1125,6 @@ ELEFANT <- function(name, nb_recon=250, list_ages,
                     save_DA=TRUE,
                     global_metrics=TRUE,
                     null_model=TRUE, 
-                    perc_cv_A=0.1,
-                    perc_cv_B=0.1,
                     seed=3, nb_cores=1, path_results=NULL){
   
   #### Step 0: Prepare the data
@@ -1201,8 +1203,14 @@ ELEFANT <- function(name, nb_recon=250, list_ages,
   traits_extant_B <- l[tree_B$tip.label,]
   traits_extant_A <- t(r)[tree_A$tip.label,]
   
-  # Thresholding approach maximizing Youden's J statistic
-  thresh_proba <- threshold_proba_interaction(network, V, tol=0.001)
+  if (threshold=="Youden"){
+    # Thresholding approach maximizing Youden's J statistic
+    thresh_proba <- threshold_proba_interaction(network, V, tol=0.001)
+  } else {
+    thresh_proba <- as.numeric(threshold)
+    if ((thresh_proba<0)|(thresh_proba>1)) {stop("object \"threshold\" must contains a numeric value between 0 and 1, or 'Youden' for using Youden's J statistic as a threshold.")}
+  }
+  
   
   results_summary <- c()
   nb_A <- ncol(network)

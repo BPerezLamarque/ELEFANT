@@ -60,6 +60,7 @@ setwd("YOUR_WORKING_DIRECTORY")
 library(phytools)
 library(RPANDA)
 library(bipartite)
+library(purrr)
 library(dplyr)
 library(tidyr)
 library(igraph)
@@ -74,64 +75,115 @@ source("functions_ELEFANT.R")
 
 Then, you can **load the example dataset** of the plant-Nymphalini interactions (from Braga et al., 2020) that can be downloaded from the folder ['example'](https://github.com/BPerezLamarque/ELEFANT/tree/main/example/): 
 
-```r
 
-# Open the phylogenetic trees:
+```r
+# Load the phylogenetic trees:
 tree_B <- read.tree("tree_Nymphalini.tre")
 tree_A <- read.tree("tree_angiosperm_families.tre")
-# Warning: Please note that the phylogenetic tree must be rooted, binary, and ultrametric to run ELEFANT. 
 
-# Open the interaction network:
-network <- read.table("network_Nymphalini_plants.csv", sep=";", header=TRUE)
-# Warring: The interaction network needs to be an interaction matrix (with O or 1 for indicating interactions). Each row corresponds to a taxon of clade B(Nymphalini here) and each column to a taxon of clade A (Angiosperm family)
+# Warning: the phylogenetic trees must be rooted, binary, and ultrametric to run ELEFANT.
+
+# Load the interaction network:
+network <- read.table("network_Nymphalini_plants.csv", sep = ";", header = TRUE)
+
+# Warning: the interaction network must be provided as a binary interaction matrix (0 = no interaction, 1 = interaction). 
+# Each row corresponds to a taxon from clade B (here, Nymphalini butterflies), and each column corresponds to a taxon from clade A (here, angiosperm families).
 
 ```
 
-Next, you need to **chose different parameters** before running ELEFANT:
+Next, you need to **choose the different parameters** before running ELEFANT:
 
 ```r
+# Name of the ELEFANT run
+name <- "Nymphalini_plant"
 
-name <- "Nymphalini_plant" # select the name of the ELEFANT run
+# Are interactions obligate?
+obligate_A <- FALSE  # Plant families do not necessarily interact with Nymphalini butterflies.
+obligate_B <- TRUE   # Butterflies obligatorily interact with at least one host plant species.
 
-# Are interactions obligate? 
-obligate_A=FALSE # Plants do not necessarily interact with herbivorous butterfly 
-obligate_B=TRUE # Butterflies obligatorily interact with at least one plant species (they need to feed!)
+# Ages (in Myr) at which ancestral networks will be reconstructed
+list_ages <- seq(0, 22, 2)
 
-# List of past ages for reconstructing the ancestral networks.
-list_ages <- c(seq(0, 22, 2)) # Warning: it can not be older than the youngest MRCA of clades A and B. Here the Nymphalini clade is 22.3 Myr old. 
+# Warning: the oldest age cannot exceed the age of the youngest MRCA of the two clades. Here, the Nymphalini clade is 22.3 Myr old.
 
-# Number of data augmentation for the network reconstructions
-nb_recon <- 25 # must be at least 250; here 25 reconstructions is just to provide a fast-to-run example
+# Number of ancestral network reconstructions
+nb_recon <- 25
 
-# Indicate which clades to subsample for cross-validation (Step 5), and what proportion to use?
-perc_cv_A=0.1
-perc_cv_B=0.1
+# Warning: at least 250 reconstructions are recommended for empirical analyses. Here, we use only 25 reconstructions to provide a fast-running example.
 
-# Measure of global metrics
-global_metrics=TRUE # whether you want to compute the global metrics of the ancestral networks (connectance, nestedness, modularity...). This step can be quite long! Set to FALSE if you are only interested in the ancestral interactions. 
-null_model=TRUE # whether you want to compute the global metrics to null expectations (highly recommanded if you plan to interpret the significance and temporal trends of the global metrics).
+# Proportion of species to subsample during cross-validation (step 5)
+perc_cv_A <- 0.1
+perc_cv_B <- 0.1
 
+# Compute global network metrics?
+global_metrics <- TRUE
 
+# If TRUE, connectance, nestedness, modularity, and other network metrics are computed for each ancestral network. This step can be computationally intensive. Set to FALSE if you are only interested in reconstructing ancestral interactions.
+
+# Compare network metrics with null expectations?
+null_model <- TRUE
+
+# Highly recommended if you plan to interpret the significance or temporal dynamics of the reconstructed network metrics.
 ```
 
-**ELEFANT can be run*** with the following function:
-
+**ELEFANT can then be run** using the following function:
 
 ```r
-
-results <- ELEFANT(name=name, nb_recon=nb_recon, list_ages=list_ages, 
-                   tree_A=tree_A, tree_B=tree_B,
-                   data_augmentation_A=TRUE, data_augmentation_B=TRUE, 
-                   obligate_A=obligate_A,
-                   obligate_B=obligate_B,
-                   lambda_A=0.01, mu_A=0.001, rho_A=0.9, # Diversification rates used for the plants (values chosen only for the sake of example).
-                   lambda_B=0.1, mu_B=0.01, rho_B=0.7, # Diversification rates used for the butterflies (values chosen only for the sake of example).
-                   only_CV=FALSE, # whether only cross-validations (step 5) should be done (skipping steps 2-4)
-                   perc_cv_A=perc_cv_A, perc_cv_B=perc_cv_B,
-                   global_metrics=global_metrics,
-                   null_model=null_model)
-
+results <- ELEFANT(
+  name = name,
+  network = network,
+  tree_A = tree_A, tree_B = tree_B,
+  nb_recon = nb_recon,
+  list_ages = list_ages,
+  threshold = "Youden",
+  only_CV = FALSE,   # If TRUE, only performs cross-validation (step 5), skipping steps 2-4.
+  perc_cv_A = perc_cv_A, perc_cv_B = perc_cv_B,
+  obligate_A = obligate_A, obligate_B = obligate_B,
+  data_augmentation_A = TRUE, data_augmentation_B = TRUE,
+  lambda_A = 0.01, mu_A = 0.001, rho_A = 0.9,  # Example diversification parameters for the plants.
+  lambda_B = 0.10, mu_B = 0.010, rho_B = 0.7,  # Example diversification parameters for the butterflies.
+  global_metrics = global_metrics,
+  null_model = null_model
+)
 ```
+
+
+
+Here are more details about the *arguments of the `ELEFANT()` function*:
+
+| Argument         | Description                                                                                                                                                                                                                                                     |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`           | Name of the ELEFANT run.                                                                                                                                                                                                                                        |
+| `network`        | A bipartite interaction matrix with species from guild A in columns and species from guild B in rows. The network must be binary (0 = no interaction, 1 = interaction).                                                                                                                                                           |
+| `tree_A`         | Phylogenetic tree of guild A (corresponding to the columns of `network`). The phylogenetic tree must be rooted, binary, and ultrametric.                                                                                                                                                                                     |
+| `tree_B`         | Phylogenetic tree of guild B (corresponding to the rows of `network`). The phylogenetic tree must be rooted, binary, and ultrametric.                                                                                                                                                                                     |
+| `nb_recon`       | Number of ancestral network reconstructions to perform. We recommend using at least 250 reconstructions.                                                                                                                                                        |
+| `list_ages`      | Vector of ages (in the same time units as the phylogenies) at which ancestral networks are reconstructed. The sequence may start at 0 (the present) and cannot extend beyond the age of the youngest MRCA of the two clades.                                    |
+| `only_CV`        | If `TRUE`, only performs the cross-validation step (step 5), skipping the more computationally intensive reconstruction steps (steps 2-4).                                                                                                                      |
+| `perc_cv_A`      | Proportion of species from clade A to subsample during cross-validation (step 5). A value of `0` indicates no subsampling for clade A, whereas `0.1` indicates that 10% of the species are subsampled.                                                                      |
+| `perc_cv_B`      | Proportion of species from clade B to subsample during cross-validation (step 5). A value of `0` indicates no subsampling for clade B, whereas `0.1` indicates that 10% of the species are subsampled.                                                                      |
+| `obligate_A`     | Whether species in clade A are obligate interactors (i.e. each species is constrained to interact with at least one partner).                                                                                                                                   |
+| `obligate_B`     | Whether species in clade B are obligate interactors (i.e. each species is constrained to interact with at least one partner).                                                                                                                                   |
+| `global_metrics` | If `TRUE`, computes global metrics of the reconstructed ancestral networks (e.g. connectance, nestedness, modularity). This step can be computationally intensive, so set it to `FALSE` if you are only interested in reconstructing ancestral interactions (and not the ancestral network structures). |
+| `null_model`     | If `TRUE`, compares the global network metrics with null expectations. This option is highly recommended when interpreting the significance or temporal dynamics of network structure.                                                                          |
+| `seed`           | Random seed used to ensure reproducibility of the analyses.                                                                                                                                                                                                     |
+| `nb_cores`       | Number of CPU cores used to run the analyses (default = 1).                                                                                                                                                                                                     |
+| `path_results`   | Directory where the results will be saved (default = the current working directory).                                                                                                                                                                            |
+
+                
+<br><br>
+
+Then, the following arguments are *specific to the data augmentation procedure* for clade A (the corresponding arguments for clade B are analogous):
+
+| Argument              | Description                                                                                                                                                                                                                                                                                                                                                                  |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data_augmentation_A` | Specifies whether data augmentation should be performed for clade A. If `TRUE`, two options are available: (i) data augmentation using a constant-rate birth–death model, in which case `lambda_A`, `mu_A`, and `rho_A` must be provided; or (ii) supplying a list of pre-generated list of augmented trees obtained using a more complex diversification model (e.g. ClaDS or BDD). |
+| `lambda_A`            | Speciation rate of clade A.                                                                                                                                                                                                                                                                                                                                                  |
+| `mu_A`                | Extinction rate of clade A.                                                                                                                                                                                                                                                                                                                                                  |
+| `rho_A`               | Sampling fraction of clade A, calculated as the number of species present in `tree_A` divided by the estimated total number of extant species in the clade.                                                                                                                                                                                                                  |
+| `treesDA_A`           | A `multiPhylo` object containing pre-generated augmented phylogenetic trees for clade A, obtained using an alternative diversification model.                                                                                                                                                                                                                                |
+
+<br> <br>
 
 Finally, the followings **plots of ancestral networks and their associated global metrics** can be represented with the following formulas:
 
@@ -140,8 +192,8 @@ Finally, the followings **plots of ancestral networks and their associated globa
 plot_networks_ELEFANT(name, results)
 
 plot_metrics_ELEFANT(name, results,
-                     clade_A="clade_A",
-                     clade_B="clade_B",
+                     clade_A="Plants",
+                     clade_B="Nymphalini",
                      min_age=10)
 
 ```
