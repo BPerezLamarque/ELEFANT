@@ -27,7 +27,7 @@ This tutorial explains how to run ELEFANT for reconstructing ancestral interacti
 # Contents:
 **[Installation](#installation)**\
 **[Running ELEFANT](#running-elefant)**
-
+**[Analyzing outputs of ELEFANT](#analyzing-outputs-of-elefant)**
 
 
 
@@ -126,6 +126,8 @@ null_model <- TRUE
 # Highly recommended if you plan to interpret the significance or temporal dynamics of the reconstructed network metrics.
 ```
 
+<br> <br>
+
 **ELEFANT can then be run** using the following function:
 
 ```r
@@ -147,7 +149,7 @@ results <- ELEFANT(
 )
 ```
 
-
+<br> <br>
 
 Here are more details about the *arguments of the `ELEFANT()` function*:
 
@@ -184,6 +186,9 @@ Then, the following arguments are *specific to the data augmentation procedure* 
 | `treesDA_A`           | A `multiPhylo` object containing pre-generated augmented phylogenetic trees for clade A, obtained using an alternative diversification model.                                                                                                                                                                                                                                |
 
 <br> <br>
+
+
+# Analyzing outputs of ELEFANT:
 
 Finally, the followings **plots of ancestral networks and their associated global metrics** can be represented with the following formulas:
 
