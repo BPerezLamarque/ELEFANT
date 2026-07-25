@@ -220,7 +220,7 @@ All results are stored in a specific folder in your working directory (or in the
 
 
 <p align="center">
-    <img src="https://github.com/BPerezLamarque/ELEFANT/blob/main/example/output_Nymphalini.png" width="600">
+    <img src="https://github.com/BPerezLamarque/ELEFANT/blob/main/example/output_Nymphalini.png" width="800">
 </p>
 <p align="center">
     <b>Figure 2: Outputs of ELEFANT:</b> A. Changes of global metrics through time in the ancestral network. B. Consensus ancestral network of the plant-Nymphalini network 10 Myr ago.
