@@ -2,7 +2,7 @@
 
 
 
-This tutorial explains how to use ELEFANT to reconstruct ancestral interaction networks from present-day interaction data.
+This tutorial explains how to use **ELEFANT (Evolution of LatEnt traits for Ancestral Network reconsTruction)** to reconstruct ancestral interaction networks from present-day interaction data.
 
 <p align="center"> 
 	<img src="https://github.com/BPerezLamarque/ELEFANT/blob/main/example/ELEFANT.png" width="600"> </p> 
