@@ -16,12 +16,10 @@ This tutorial explains how to use ELEFANT to reconstruct ancestral interaction n
 
 **Citation:** Benoît Perez-Lamarque, Jérémy Andréoletti, Baptiste Morillon, Orane Pion-Piola, Amaury Lambert, and Hélène Morlon, *Darwin’s Entangled Bank Through Deep Time*, bioRxiv, 2025, DOI: https://doi.org/10.1101/2025.10.08.681159
 
-<br> <br>
 
 **Contact:** Benoît Perez-Lamarque, benoit.perez.lamarque@gmail.com
 
 
-<br> <br>
 
 # Contents:
 **[Installation](#installation)**\
