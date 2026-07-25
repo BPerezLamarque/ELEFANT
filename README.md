@@ -89,6 +89,8 @@ network <- read.table("network_Nymphalini_plants.csv", sep = ";", header = TRUE)
 
 ```
 
+<br> 
+
 Next, you need to **choose the different parameters** before running ELEFANT:
 
 ```r
@@ -124,7 +126,7 @@ null_model <- TRUE
 # Highly recommended if you plan to interpret the significance or temporal dynamics of the reconstructed network metrics.
 ```
 
-<br> <br>
+<br> 
 
 **ELEFANT can then be run** using the following function:
 
@@ -147,7 +149,7 @@ results <- ELEFANT(
 )
 ```
 
-<br> <br>
+<br> 
 
 Here are more details about the *arguments of the `ELEFANT()` function*:
 
@@ -171,7 +173,7 @@ Here are more details about the *arguments of the `ELEFANT()` function*:
 | `path_results`   | Directory where the results will be saved (default = the current working directory).                                                                                                                                                                            |
 
                 
-<br><br>
+<br>
 
 Then, the following arguments are *specific to the data augmentation procedure* for clade A (the corresponding arguments for clade B are analogous):
 
@@ -183,7 +185,7 @@ Then, the following arguments are *specific to the data augmentation procedure* 
 | `rho_A`               | Sampling fraction of clade A, calculated as the number of species present in `tree_A` divided by the estimated total number of extant species in the clade.                                                                                                                                                                                                                  |
 | `treesDA_A`           | A `multiPhylo` object containing pre-generated augmented phylogenetic trees for clade A, obtained using an alternative diversification model.                                                                                                                                                                                                                                |
 
-<br> <br>
+<br> 
 
 
 # Analyzing outputs of ELEFANT:
