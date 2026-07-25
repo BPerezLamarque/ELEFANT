@@ -21,17 +21,14 @@ This tutorial explains how to use ELEFANT to reconstruct ancestral interaction n
 
 <br> 
 
-
 # Contents:
 **[Installation](#installation)**\
-**[Running ELEFANT](#running-elefant)**
+**[Running ELEFANT](#running-elefant)**\
 **[Analyzing outputs of ELEFANT](#analyzing-outputs-of-elefant)**
-
 
 <br> 
 
 # Installation:
-
 
 The R script to run ELEFANT ("functions_ELEFANT.R") must be downloaded from the folder ['R'](https://github.com/BPerezLamarque/ELEFANT/tree/main/R/) and stored in your R working directory. 
 In addition, the following packages must be installed:
