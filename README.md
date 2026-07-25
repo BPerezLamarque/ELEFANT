@@ -11,7 +11,7 @@ This tutorial explains how to use ELEFANT to reconstruct ancestral interaction n
 </p>
 
 
-<br> <br>
+<br> 
 
 
 **Citation:** Benoît Perez-Lamarque, Jérémy Andréoletti, Baptiste Morillon, Orane Pion-Piola, Amaury Lambert, and Hélène Morlon, *Darwin’s Entangled Bank Through Deep Time*, bioRxiv, 2025, DOI: https://doi.org/10.1101/2025.10.08.681159
@@ -19,6 +19,7 @@ This tutorial explains how to use ELEFANT to reconstruct ancestral interaction n
 
 **Contact:** Benoît Perez-Lamarque, benoit.perez.lamarque@gmail.com
 
+<br> 
 
 
 # Contents:
@@ -27,7 +28,7 @@ This tutorial explains how to use ELEFANT to reconstruct ancestral interaction n
 **[Analyzing outputs of ELEFANT](#analyzing-outputs-of-elefant)**
 
 
-
+<br> 
 
 # Installation:
 
@@ -40,7 +41,7 @@ install.packages("phytools", "mvMORPH", "RPANDA", "bipartite", "igraph", "ggplot
 
 ```
 
-
+<br> 
 
 # Running ELEFANT:
 
@@ -70,6 +71,8 @@ library(ggpubr)
 source("functions_ELEFANT.R")
 
 ```
+
+<br> 
 
 Then, you can **load the example dataset** of the plant-Nymphalini interactions (from Braga et al., 2020) that can be downloaded from the folder ['example'](https://github.com/BPerezLamarque/ELEFANT/tree/main/example/): 
 
