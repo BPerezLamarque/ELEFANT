@@ -5,7 +5,7 @@
 This tutorial explains how to use **ELEFANT (Evolution of LatEnt traits for Ancestral Network reconsTruction)** to reconstruct ancestral interaction networks from present-day interaction data.
 
 <p align="center"> 
-	<img src="https://github.com/BPerezLamarque/ELEFANT/blob/main/example/ELEFANT.png" width="600"> </p> 
+	<img src="https://github.com/BPerezLamarque/ELEFANT/blob/main/example/ELEFANT.png" width="800"> </p> 
 	<p align="center"> <b>Figure 1. ELEFANT: Evolution of LatEnt traits for Ancestral Network reconsTruction.</b> <small>Given a present-day bipartite interaction network (N), ELEFANT first estimates the latent traits of extant species from both clades (L and R) that underlie present-day interactions using the Random Dot Product Graph (RDPG) framework. Each species is characterized by a vector of <i>d</i> latent trait values; for clarity, only the first latent trait is represented here using a color gradient. Second, for each clade, ELEFANT augments the phylogenetic tree with extinct and unsampled lineages (shown in green) using a birth–death data augmentation procedure assuming constant speciation (λ), extinction (μ), and sampling (ρ) rates. Third, ELEFANT reconstructs ancestral latent traits along each phylogeny under a Brownian motion model. Fourth, at any specified time in the past (e.g. 50 Ma), ancestral interaction networks are inferred from the reconstructed latent trait values. Finally, to assess whether the assumptions underlying ELEFANT are appropriate for a given empirical system, a cross-validation procedure evaluates the ability of the method to recover known present-day interactions from subsampled extant data.
 	</small> 
 </p>
