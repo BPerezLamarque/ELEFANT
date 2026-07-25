@@ -11,6 +11,9 @@ This tutorial explains how to use ELEFANT to reconstruct ancestral interaction n
 </p>
 
 
+<br> <br>
+
+
 **Citation:** Benoît Perez-Lamarque, Jérémy Andréoletti, Baptiste Morillon, Orane Pion-Piola, Amaury Lambert, and Hélène Morlon, *Darwin’s Entangled Bank Through Deep Time*, bioRxiv, 2025, DOI: https://doi.org/10.1101/2025.10.08.681159
 
 
@@ -43,9 +46,10 @@ install.packages("phytools", "mvMORPH", "RPANDA", "bipartite", "igraph", "ggplot
 # Running ELEFANT:
 
 
-First, you can set your working directory and **load the required packages and functions**.
-ELEFANT has been successfully tested on Linux and MacOS using R versions >4.2. 
-The running time of ELEFANT will depend on the size of the datasets (it can take from a few minutes to several hours). To save time, the computation of the global metrics of the ancestral networks (the longest part) can be skipped. 
+First, set your working directory and **load the required packages and functions**.
+ELEFANT has been successfully tested on Linux and macOS using R versions ≥ 4.2.
+The running time of ELEFANT depends on the size of the dataset and can range from a few minutes to several hours. To reduce computation time, the calculation of global metrics for ancestral networks (the most computationally intensive step) can be skipped.
+
 
 ```r
 
