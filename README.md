@@ -203,16 +203,27 @@ plot_metrics_ELEFANT(name, results,
 
 ```
 
-All results are stored in a specific folder in your working directory. 
+| Argument | Description |
+| --- | --- |
+| `name` | Name of the ELEFANT run. |
+| `results` | Output returned by the `ELEFANT()` function. |
+| `clade_A` | Name of clade A. |
+| `clade_B` | Name of clade B. |
+| `min_age` | Minimum age considered for analysing changes in network structure. For example, if set to 10, structural metrics are evaluated from the present (0 Ma) to 10 Ma. |
+| `path_results` | Directory where the results have been saved (default: current working directory). |
 
+<br>
+
+All results are stored in a specific folder in your working directory (or in the `path_results` if specified). 
+
+<br>
 
 
 <p align="center">
     <img src="https://github.com/BPerezLamarque/ELEFANT/blob/main/example/output_Nymphalini.png" width="600">
 </p>
-
 <p align="center">
     <b>Figure 2: Outputs of ELEFANT:</b> A. Changes of global metrics through time in the ancestral network. B. Consensus ancestral network of the plant-Nymphalini network 10 Myr ago.
 </p>
 
-
+<br>
