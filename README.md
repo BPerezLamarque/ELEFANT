@@ -39,7 +39,7 @@ The R script to run ELEFANT ("functions_ELEFANT.R") must be downloaded from the 
 In addition, the following packages must be installed:
 
 ```r
-install.packages("phytools", "mvMORPH", "RPANDA", "bipartite", "igraph", "ggplot2", "ggpubr")
+install.packages("phytools", "mvMORPH", "RPANDA", "bipartite", "igraph", "ggplot2", "purrr", "ggpubr")
 
 ```
 
